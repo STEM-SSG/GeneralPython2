@@ -58,7 +58,7 @@ def cylinder_compute_draw(circle_diameter, cylinder_length, circle_org_x = 0, ci
 
     # Compute the area and volume, then annotate drawing with details
     circle_area, cylinder_volume = cylinder_vol_calc(circle_diameter, cylinder_length)
-    annotate_calulation(circle_diameter, circle_area, cylinder_length, cylinder_volume)
+    # annotate_calulation(circle_diameter, circle_area, cylinder_length, cylinder_volume)
 
 
     

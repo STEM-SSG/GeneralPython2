@@ -18,8 +18,57 @@ import time             # Time delay functions
 '''
 draws a square at the given (x,y) coordinate, with the specified side width
 '''
-def draw_square(x, y, width):
-	pass
+def draw_square_v0(x, y, width):
+    # use the preexisting grid_turtle variable
+    global grid_turtle
+
+    # move penup
+    grid_turtle.penup()
+
+    # go to specified position
+    grid_turtle.goto(x,y)
+    grid_turtle.pendown()
+
+    # face each direction and go forward
+    # this draws each side of the square
+    grid_turtle.setheading(0)
+    grid_turtle.forward(width)
+
+    grid_turtle.setheading(90)
+    grid_turtle.forward(width)
+
+    grid_turtle.setheading(180)
+    grid_turtle.forward(width)
+
+    grid_turtle.setheading(270)
+    grid_turtle.forward(width)
+
+    # finished drawing, so penup so we don't draw when we move next
+    grid_turtle.penup()
+
+'''
+draws a square at the given (x,y) coordinate, with the specified side width
+uses a loop to draw the sides, thus simplifying code
+'''
+def draw_square_v1(x, y, width):
+    # use the preexisting grid_turtle variable
+    global grid_turtle
+
+    # move penup
+    grid_turtle.penup()
+
+    # go to specified position
+    grid_turtle.goto(x,y)
+    grid_turtle.pendown()
+
+    # face each direction and go forward
+    # this draws each side of the square
+    for heading in [0, 90, 180, 270]:
+        grid_turtle.setheading(heading)
+        grid_turtle.forward(width)
+
+    # finished drawing, so penup so we don't draw when we move next
+    grid_turtle.penup()
 
 '''
 draws a grid centered at the origin (centre of screen),
@@ -38,8 +87,7 @@ def draw_grid(grid_width, grid_height, tile_width):
     # loop through each grid square location and draw it
     for x in range(-grid_width, grid_width):
         for y in range(-grid_height, grid_height):
-            # TODO: Call draw_square_vx function with correct parameters
-            pass
+            draw_square_v1(x*tile_width, y*tile_width, tile_width)
 
     # draw axis
     grid_turtle.color("black")
@@ -97,16 +145,18 @@ def plot_point(x, y, tile_width, color, shape):
     grid_turtle.penup()
 
     # set colour and shape appropriately
-    # TODO: Configure Turtle
+    grid_turtle.color(color)
+    grid_turtle.shape(shape)
 
     # go to correct grid point and stamp turtle
-    # TODO: Draw point
+    grid_turtle.goto(x * tile_width, y * tile_width)
+    grid_turtle.stamp()
 
 # Main program starts here
 # ------------------------
 if __name__ == '__main__':
     from setup import setup
-    turtle_window = setup("QUT General Python Example 1")
+    turtle_window = setup("Madlad Grapher™")
 
     # turn tracer off to draw grid instantly
     grid_turtle = turtle.Turtle()
@@ -118,8 +168,13 @@ if __name__ == '__main__':
     grid_height = 5
     tile_width = 50
 
-	# grid code goes here
-	
+    # draw grid
+    draw_grid(grid_width, grid_height, tile_width)
+
+    # plot line y=2x+1
+    for x in range (-3,3):
+        plot_point(x, 2*x+1, tile_width, 'green', 'circle')
+
     # Draw all the code to the screen
     turtle_window.mainloop()
 

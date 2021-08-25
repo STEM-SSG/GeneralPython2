@@ -24,6 +24,6 @@ def setup(title: str) -> turtle.TurtleScreen:
 
     # Set the title at the top of the window
     turtle_window.title(title)
-    turtle.tracer(True)
+    turtle.tracer(False)
 
     return turtle_window
